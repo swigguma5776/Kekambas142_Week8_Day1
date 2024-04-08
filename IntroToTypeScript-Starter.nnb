@@ -1043,7 +1043,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n"
+                "\n// See above \n\n\n\n"
             ],
             "outputs": []
         },
@@ -1071,9 +1071,21 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n"
+                "enum IceEnum {Offense='O', Defense='D', SpecialTeam='ST'}\n\nconsole.log(IceEnum.Offense)\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "O",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1106,9 +1118,22 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "function myUnknownFunction(person:any){\n    person.walk();\n    person.talk();\n}\n\nmyUnknownFunction({'name': 'Travis', 'cool': true})\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "TypeError",
+                                "message": "person.walk is not a function",
+                                "stack": "    at myUnknownFunction (<Cell 112> [2, 10])\n    at <Cell 112> [6, 17]\n    at <Cell 112> [8, 46]\n    at Script.runInContext (node:vm:133:12)\n    at Script.runInNewContext (node:vm:138:17)\n    at Object.runInNewContext (node:vm:288:38)\n    at C (/Users/alexswiggum/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:113345)\n    at t.execCode (/Users/alexswiggum/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:114312)\n    at k.<anonymous> (/Users/alexswiggum/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:142156)\n    at k.emit (node:events:514:28)"
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1127,7 +1152,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "\nfunction myUnknownFunction(person:unknown){\n    person.walk();\n    person.talk();\n}\n\n\n"
             ],
             "outputs": []
         },
@@ -1148,9 +1173,22 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                "// Type Guarding is just a fancy waay of saying if conditionals\nclass Person {\n    walk(){\n        console.log(\"I'm Christopher Walkin here\")\n    }\n    talk(){\n        console.log(\"Speaking of Christopher Walkin why the heck was he in Dune 2? That was weird right?\")\n    }\n}\n\nfunction myUnknownFunction(person:unknown):void{\n    // Type Guarding\n    if (person instanceof Person){\n        person.walk()\n        person.talk()\n    } else {\n        console.log(\"This is not a person and can neither walk nor talk. Sorry :(\")\n    }\n}\n\n\nlet christopher = new Person()\n\nmyUnknownFunction(christopher)\n\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "I'm Christopher Walkin here",
+                                "Speaking of Christopher Walkin why the heck was he in Dune 2? That was weird right?",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1169,7 +1207,26 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n\n\n\n"
+                "\nfunction iceGuard(value: unknown): number | string | boolean | unknown {\n    if (typeof value === 'number') {\n        return value * value;\n    } else if (typeof value === 'string') {\n        return value.toUpperCase(); \n    } else if (typeof value === 'boolean') {\n        return value ? \"Its on\" : \"Its off\"; \n    } else {\n        return value;\n    }\n}\n\n\niceGuard('total eclipse of the heart')\n\n// This doesn't work!\nconst iceGuard2 = (value:unknown):void => {\n    if (value instanceof String) {\n        console.log(\"It's a string!\")\n    } else {\n        console.log(\"It's not a string\")\n    }\n}\n\n\niceGuard2('howdy')\n\n\n\n\n\n\n\n\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "It's not a string",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// function iceGuard(input:unknown):unknown{\n//     if (input instanceof Number) {\n//         console.log(\"Its a number!\")\n//         return input as number **2 \n//     } else if (input instanceof String) {\n//         return input.toUpperCase()\n//     } else if (input instanceof Boolean){\n//         if (input == true) {\n//             return \"Its on\"\n//         } else {\n//             return \"Its off\"\n//         }\n//     } else {\n//         return input\n//     }\n// }\n\n// iceGuard('howdy')\n\n\n//primative types (number, string, boolean, null, undefined) cannot use instanceof"
             ],
             "outputs": []
         },
@@ -1190,9 +1247,523 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n"
+                "// some sort of process happening in the background that never resolves\n\nfunction myNeverFunction(): never {\n    while (true) {\n        console.log(\"Heeeey what's going on \")\n    }\n}\n\n\n\nmyNeverFunction()\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                "Heeeey what's going on ",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1218,28 +1789,53 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n//Error because name:string is not part of our shape"
+                "let student1 = {id:1}\n\n// student1.name = \"Jean\"\n//Error because name:string is not part of our shape"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n"
+                "student1.id = 2\n\nlet student2 = {id: 1, name: 'Jean'}\n\nstudent2.name = 'Caleb'\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'Caleb'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "let student: { id: number, name: string} // Explicity building my object shape! \n\nstudent = {\n    id: 2,\n    name: 'Otha'\n}\n\n\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "{",
+                                "  id: \u001b[33m2\u001b[39m,",
+                                "  name: \u001b[32m'Otha'\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "typescript",
             "source": [
-                "//error"
+                "//error\nstudent.name = true"
             ],
             "outputs": []
         },
@@ -1267,7 +1863,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "                     // creating our shape. \nlet iceMan: {id: number, name: string, wasFrozen: boolean } = {id: 3, name: 'Yetti', wasFrozen: true}\n\nlet iceMan2: {id: number, name: string, wasFrozen: boolean } = {id: 3, name: 'Yetti', wasFrozen: true}\n"
             ],
             "outputs": []
         },
@@ -1288,21 +1884,21 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n"
+                "// making custom types! aka the SHAPE of our data\n// type Bender = {\n//     id: number,\n//     nation: string,\n//     power: number,\n//     name: string\n// }\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "let katara: Bender = {id: 1, nation: 'water', power: 7, name: 'Katara'}\n// let aang: Bender = {id:2, nation: 'air', power: 9, name: 'Aang'}\n\n\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                ""
+                "aang.nation = 5 //Error\naang.pet = 'Appa' //Error "
             ],
             "outputs": []
         },
@@ -1330,7 +1926,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n"
+                "type IceManType = {\n    id: number,\n    name: string,\n    wasFrozen: boolean\n}\n\n"
             ],
             "outputs": []
         },
@@ -1351,14 +1947,14 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "// added readonly in front of id\n\n// type Bender = {\n//     readonly id: number,\n//     nation: string,\n//     power: number,\n//     name: string\n// }\n\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "\nlet iroh: Bender = {id: 3, nation: 'fire', power: 8, name: 'Uncle Iroh'}\n\niroh.id = 5 //Error\n\n\n"
             ],
             "outputs": []
         },
@@ -1386,14 +1982,14 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n"
+                "// Added an optional pet field\n\n// type Bender = {\n//     readonly id: number,\n//     nation: string,\n//     power: number,\n//     name: string,\n//     pet?: string\n// }\n\n\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "\nlet aang: Bender = {id:2, nation: 'air', power: 9, name: 'Aang', pet: 'Appa'}\nlet zuko: Bender = {id: 5, nation: 'fire', power: 7, name: 'Zuko', pet: 'Druk'}\n\n\n"
             ],
             "outputs": []
         },
@@ -1421,16 +2017,27 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n"
+                "\n// finally we can ALSO add methods to our types\n\ntype Bender = {\n    readonly id: number,\n    nation: string,\n    power: number,\n    name: string,\n    pet?: string,\n    usePower: (power: string) => string\n}\n\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n"
+                "\nlet toph: Bender = {\n    id: 6, \n    nation: 'earth',\n    power: 8,\n    name: 'Toph',\n    usePower: (power: string) => {\n        return `I will use my ${power} power to defeat you!!!`\n    }\n}\n\ntoph.usePower('rock slicer')\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'I will use my rock slicer power to defeat you!!!'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "typescript",
@@ -1456,7 +2063,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                "\ntype IceShoeType = {\n    readonly id: number,\n    size: number,\n    name: string,\n    wideVersion?: boolean,\n    description: string\n}\n\n\nlet iceShoe: IceShoeType = {\n    id: 3,\n    size: 7.5,\n    name: 'Vans',\n    description: 'My Checkered Vans. Did they come back in style? Or did they never leave? Who knows'\n}\n\n\n\n"
             ],
             "outputs": []
         },
@@ -1477,21 +2084,21 @@
         {
             "language": "typescript",
             "source": [
-                ""
+                "// When we use the | to assign multiple values \nlet multipleType: string | number"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                ""
+                "multipleType = 'My string!'\nmultipleType = 5"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n"
+                "multipleType = true //Error\n"
             ],
             "outputs": []
         },
@@ -1519,16 +2126,38 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "function inchestoCm(length: string | number): number {\n    return length * 2.54\n}\n\n\n\ninchestoCm('12')"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m30.48\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n"
+                "// using our union types WITH Type guarding\n\nfunction inchestoCm(length: string | number): number {\n    if (typeof length === 'string'){\n        return parseFloat(length) * 2.54\n    } else {\n        return length * 2.54\n    }\n}\n\n\n\ninchestoCm('12')\n\n\n\n\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m30.48\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "typescript",
@@ -1568,9 +2197,20 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n\n\n"
+                "\nfunction ice13(myParam: boolean | string): boolean {\n    if (typeof myParam === 'string'){\n        return myParam.toLowerCase().startsWith('c')\n    } else {\n        return myParam\n    }\n}\n\n\nice13(false)\n\n"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33mfalse\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1589,16 +2229,27 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n"
+                "\nfunction doesInclude(arr: string[], target: string | number): boolean {\n    return arr.includes(target) //Error\n}\n\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n"
+                "function doesInclude(arr: string[], target: string | number): boolean {\n    return arr.includes(target as string) //Error\n}\n\n\n\ndoesInclude(['Fire Nation', 'Water Nation', 'Earth Nation'], 57)"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33mfalse\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1617,14 +2268,14 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                "\ntype Moveable = {\n    id: number,\n    x: number,\n    y: number,\n    move?: ()=>void\n}\n\ntype Resizable = {\n    id: number,\n    width: number,\n    height: number,\n    resize?: ()=>void\n}\n\n\ntype Component = Moveable & Resizable\n\n\n\n"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                ""
+                "let newComponent: Component = {\n    id: 5,\n    x: 10,\n    y: 10,\n    width: 25,\n    height: 15\n}"
             ],
             "outputs": []
         },
@@ -1645,7 +2296,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+                "\ntype IceUser = {\n    firstName: string,\n    lastName: string,\n    age: number\n}\n\ntype IceCustomer = {\n    cart: string[],\n    address: string\n}\n\ntype IceComplete = IceUser & IceCustomer\n\n\nlet icedOver: IceComplete = {\n    firstName: 'Alex',\n    lastName: 'Swiggum',\n    age: 32,\n    cart: ['peanut butter', 'ice cream'],\n    address: 'New Orleans'\n}\n\n\n\n\n\n"
             ],
             "outputs": []
         },
@@ -1666,16 +2317,27 @@
         {
             "language": "typescript",
             "source": [
-                "// This is useless\n\n"
+                "// This is useless\n\nlet literalType: 100"
             ],
             "outputs": []
         },
         {
             "language": "typescript",
             "source": [
-                "\n"
+                "// literala union types\nlet multipleLiteralTypes: 100 | 50 | 25\nmultipleLiteralTypes = 25"
             ],
-            "outputs": []
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m25\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "language": "markdown",
@@ -1687,7 +2349,7 @@
         {
             "language": "typescript",
             "source": [
-                "\n\n"
+                "type Color = 'red' | 'blue' | 'green' | 'yellow'\n\n"
             ],
             "outputs": []
         },
